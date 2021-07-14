@@ -1,0 +1,405 @@
+﻿@model HomeViewModel
+
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                <h1 data-aos="fade-up">@Model.SettingV.Title</h1>
+                <h2 data-aos="fade-up" data-aos-delay="400">@Model.SettingV.Subtitle</h2>
+                <div data-aos="fade-up" data-aos-delay="800">
+                    <a asp-fragment="about" class="btn-get-started scrollto">Get Started</a>
+                </div>
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
+                <img src="~/assets/img/@Model.SettingV.Img" class="img-fluid animated" alt="">
+            </div>
+        </div>
+    </div>
+
+</section><!-- End Hero -->
+
+<main id="main">
+
+    <!-- ======= Clients Section ======= -->
+    <section id="clients" class="clients clients">
+        <div class="container">
+
+            <div class="row">
+                @foreach (Client client in Model.Clients)
+	           {
+                <div class="col-lg-2 col-md-4 col-6">
+                    <img src="~/assets/img/clients/@client.Img" class="img-fluid" alt="" data-aos="zoom-in">
+                </div>
+	           }
+            </div>
+
+        </div>
+    </section><!-- End Clients Section -->
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+                <h2>About Us</h2>
+            </div>
+
+            <div class="row content">
+                @Html.Raw(Model.SettingV.AboutDesc)
+            </div>
+
+        </div>
+    </section><!-- End About Us Section -->
+    <!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts">
+        <div class="container">
+
+            <div class="row">
+                <div class="image col-xl-5 d-flex align-items-stretch justify-content-center justify-content-xl-start" data-aos="fade-right" data-aos-delay="150">
+                    <img src="~/assets/img/@Model.SettingV.AboutImg" alt="" class="img-fluid">
+                </div>
+
+                <div class="col-xl-7 d-flex align-items-stretch pt-4 pt-xl-0" data-aos="fade-left" data-aos-delay="300">
+                    <div class="content d-flex flex-column justify-content-center">
+                        <div class="row">
+                            @foreach (AboutInfo aboutI in Model.AboutInfos)
+                            {
+                                <div class="col-md-6 d-md-flex align-items-md-stretch">
+                                    <div class="count-box">
+                                        @Html.Raw(aboutI.Icon)
+                                        <span data-purecounter-start="0" data-purecounter-end="@aboutI.Count" data-purecounter-duration="1" class="purecounter"></span>
+                                        <p><strong>@aboutI.Title</strong> @aboutI.Subtitle</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div><!-- End .content-->
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End Counts Section -->
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+                <h2>Services</h2>
+                <p>@Model.SettingV.ServicesSubtitle</p>
+            </div>
+
+            <div class="row">
+                @foreach (Service service in Model.Services)
+	           {
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                    <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                        <div class="icon">@Html.Raw(service.Icon)</div>
+                        <h4 class="title"><a href="">@service.Title</a></h4>
+                        <p class="description">@service.Desc</p>
+                    </div>
+                </div>
+	           }
+
+            </div>
+
+        </div>
+    </section><!-- End Services Section -->
+    <!-- ======= More Services Section ======= -->
+    <section id="more-services" class="more-services">
+        <div class="container">
+
+            <div class="row">
+                @foreach (ServiceCard serviceC in Model.ServiceCards)
+	        {
+                <div class="col-md-6 d-flex align-items-stretch @(serviceC.Id==Model.ServiceCards.First().Id?"":"mt-4") @(serviceC.Id==Model.ServiceCards.ElementAt(1).Id?"mt-md-0":"")">
+                    <div class="card" style='background-image: url("@Url.Content("~/assets/img/"+serviceC.BgImg)");' data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="">@serviceC.Title</a></h5>
+                            <p class="card-text">@serviceC.Text</p>
+                            <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div>
+                        </div>
+                    </div>
+                </div>
+	        }
+            </div>
+
+        </div>
+    </section><!-- End More Services Section -->
+    <!-- ======= Features Section ======= -->
+    <section id="features" class="features">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+                <h2>Features</h2>
+                <p>@Model.SettingV.FeaturesSubtitle</p>
+            </div>
+
+            <div class="row" data-aos="fade-up" data-aos-delay="300">
+                @foreach (Feature feature in Model.Features)
+                {
+                    <div class="col-lg-3 col-md-4 @(feature.Id==Model.Features.First().Id?"":"mt-4") @(feature.Id==Model.Features.ElementAt(1).Id&&feature.Id==Model.Features.ElementAt(2).Id?"mt-md-0":"") @(feature.Id==Model.Features.ElementAt(3).Id?"mt-lg-0":"")">
+                        <div class="icon-box">
+                            @Html.Raw(feature.Icon)
+                            <h3><a href="">@feature.Name</a></h3>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </section><!-- End Features Section -->
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials section-bg">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+                <h2>Testimonials</h2>
+                <p>@Model.SettingV.TestimonialsSubtitle</p>
+            </div>
+
+            <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper-wrapper">
+                    @foreach (Testimonial tes in Model.Testimonials)
+                    {
+                        <div class="swiper-slide">
+                            <div class="testimonial-wrap">
+                                <div class="testimonial-item">
+                                    <img src="~/assets/img/testimonials/@tes.Img" class="testimonial-img" alt="">
+                                    <h3>@tes.FullName</h3>
+                                    <h4>@tes.Position</h4>
+                                    <p>
+                                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                        @tes.Text
+                                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div><!-- End testimonial item -->
+                    }
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+        </div>
+    </section><!-- End Testimonials Section -->
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+                <h2>Portfolio</h2>
+                <p>@Model.SettingV.PortfolioSubtitle</p>
+            </div>
+
+            <div class="row" data-aos="fade-up" data-aos-delay="200">
+                <div class="col-lg-12 d-flex justify-content-center">
+                    <ul id="portfolio-flters">
+                        <li data-filter="*" class="filter-active">All</li>
+                        @foreach (PortCategory pCategory in Model.PortCategories)
+                        {
+                            <li data-filter=".filter-@pCategory.Name.ToLower()">@pCategory.Name</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="400">
+                @foreach (Portfolio port in Model.Portfolios)
+	        {
+                <div class="col-lg-4 col-md-6 portfolio-item filter-@port.Category.Name.ToLower()">
+                    <div class="portfolio-wrap">
+                        <img src="~/assets/img/portfolio/@port.PortImages.First().Path" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>@port.Name</h4>
+                            <p>@port.Category.Name</p>
+                            <div class="portfolio-links">
+                                <a href="~/assets/img/portfolio/@port.PortImages.First().Path" data-gallery="portfolioGallery" class="portfolio-lightbox" title="@port.Name"><i class="bx bx-plus"></i></a>
+                                <a asp-action="Portfolio" asp-route-id="@port.Id" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+	        }
+
+            </div>
+
+        </div>
+    </section><!-- End Portfolio Section -->
+    <!-- ======= Team Section ======= -->
+    <section id="team" class="team section-bg">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+                <h2>Team</h2>
+                <p>@Model.SettingV.TeamSubtitle</p>
+            </div>
+
+            <div class="row">
+                @foreach (Team team in Model.Teams)
+                {
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                        <div class="member" data-aos="fade-up" data-aos-delay="100">
+                            <div class="member-img">
+                                <img src="~/assets/img/team/@team.Img" class="img-fluid" alt="">
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h4>@team.FullName</h4>
+                                <span>@team.Position</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </section><!-- End Team Section -->
+    <!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Pricing</h2>
+                <p>@Model.SettingV.PricingSubtitle</p>
+            </div>
+
+            <div class="row">
+                @foreach (Plan plan in Model.Plans)
+                {
+                    <div class="col-lg-4 col-md-6 @(plan.Id==Model.Plans.ElementAt(1).Id?"mt-4 mt-md-0":"") @(plan.Id==Model.Plans.ElementAt(2).Id?"mt-4 mt-lg-0":"")">
+                        <div class="box @(plan.Id==Model.Plans.ElementAt(1).Id?"recommended":"")" data-aos="zoom-in-right" data-aos-delay="200">
+                            <h3>@plan.Name</h3>
+                            <h4><sup>$</sup>@plan.Price<span> / month</span></h4>
+                            <ul>
+                                @foreach (PlanFeature pf in plan.PlanFeatures)
+                                {
+                                    <li>@pf.PlFeature.Text</li>
+                                }
+                                @if (plan.Id == Model.Plans.First().Id)
+                                {
+                                    <li>   </li>
+                                    <li style="margin-bottom:55px">   </li>
+                                }
+                                else if (plan.Id == Model.Plans.ElementAt(1).Id)
+                                {
+                                    <li style="margin-bottom:35px">   </li>
+                                }
+
+                            </ul>
+                            <div class="btn-wrap">
+                                <a href="#" class="btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+
+        </div>
+    </section><!-- End Pricing Section -->
+    <!-- ======= F.A.Q Section ======= -->
+    <section id="faq" class="faq">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            @foreach (Faq faq in Model.Faqs)
+            {
+                <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-lg-5">
+                        <i class="ri-question-line"></i>
+                        <h4>@faq.Question</h4>
+                    </div>
+                    <div class="col-lg-7">
+                        <p>
+                            @faq.Answer
+                        </p>
+                    </div>
+                </div><!-- End F.A.Q Item-->
+            }
+
+        </div>
+    </section><!-- End F.A.Q Section -->
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+                <h2>Contact Us</h2>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="contact-about">
+                        <h3>Vesperr</h3>
+                        <p>@Model.SettingV.Newsletter</p>
+                        <div class="social-links">
+                            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="200">
+                    <div class="info">
+                        <div>
+                            <i class="ri-map-pin-line"></i>
+                            <p>@Model.SettingV.Street<br>@Model.SettingV.City, @Model.SettingV.ZipCode</p>
+                        </div>
+
+                        <div>
+                            <i class="ri-mail-send-line"></i>
+                            <p>@Model.SettingV.Email</p>
+                        </div>
+
+                        <div>
+                            <i class="ri-phone-line"></i>
+                            <p>@Model.SettingV.Phone</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-12" data-aos="fade-up" data-aos-delay="300">
+                    <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                        <div class="form-group">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                        </div>
+                        <div class="my-3">
+                            <div class="loading">Loading</div>
+                            <div class="error-message"></div>
+                            <div class="sent-message">Your message has been sent. Thank you!</div>
+                        </div>
+                        <div class="text-center"><button type="submit">Send Message</button></div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Contact Section -->
+
+</main><!-- End #main -->

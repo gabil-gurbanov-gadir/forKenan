@@ -1,0 +1,141 @@
+
+
+
+--Vesperr Site Sql queries
+
+CREATE DATABASE VesperrDB
+USE VesperrDB
+
+CREATE TABLE Clients(
+Id INT PRIMARY KEY IDENTITY,
+Img NVARCHAR(100) NOT NULL
+)
+
+CREATE TABLE AboutInfos(
+Id INT PRIMARY KEY IDENTITY,
+Icon NVARCHAR(100) NOT NULL,
+[Count] INT NOT NULL,
+Title NVARCHAR(50) NOT NULL,
+Subtitle NVARCHAR(150) NOT NULL
+)
+
+CREATE TABLE FaqS(
+Id INT PRIMARY KEY IDENTITY,
+Question NVARCHAR(300) NOT NULL,
+Answer NVARCHAR(700) NOT NULL
+)
+
+CREATE TABLE Features(
+Id INT PRIMARY KEY IDENTITY,
+Icon NVARCHAR(100) NOT NULL,
+[Name] NVARCHAR(50) NOT NULL
+)
+
+CREATE TABLE Plans(
+Id INT PRIMARY KEY IDENTITY,
+[Name] NVARCHAR(50) NOT NULL,
+Price DECIMAL(8,2) NOT NULL
+)
+
+CREATE TABLE PlFeatures(
+Id INT PRIMARY KEY IDENTITY,
+[Text] NVARCHAR(150) NOT NULL
+)
+
+CREATE TABLE PlanFeatures(
+Id INT PRIMARY KEY IDENTITY,
+PlanId INT NOT NULL CONSTRAINT FK_PlanFeatures_Plans_PlanId FOREIGN KEY 
+REFERENCES Plans(Id),
+PlFeatureId INT NOT NULL CONSTRAINT FK_PlanFeatures_PlFeatures_PlFeatureId FOREIGN KEY
+REFERENCES PlFeatures(Id)
+)
+
+CREATE TABLE PortCategories(
+Id INT PRIMARY KEY IDENTITY,
+[Name] NVARCHAR(50) NOT NULL
+)
+
+CREATE TABLE Portfolios(
+Id INT PRIMARY KEY IDENTITY,
+[Name] NVARCHAR(50) NOT NULL,
+CategoryId INT NOT NULL CONSTRAINT FK_Portfolios_PortCategories_CategoryId FOREIGN KEY
+REFERENCES PortCategories(Id)
+)
+
+CREATE TABLE PortImages(
+Id INT PRIMARY KEY IDENTITY,
+[Path] NVARCHAR(100) NOT NULL,
+PortfolioId INT NOT NULL CONSTRAINT FK_PortImages_Portfolios_PortfolioId FOREIGN KEY
+REFERENCES Portfolios(Id)
+)
+
+CREATE TABLE ServiceCards(
+Id INT PRIMARY KEY IDENTITY,
+BgImg NVARCHAR(100) NOT NULL,
+Title NVARCHAR(80) NOT NULL,
+[Text] NVARCHAR(300) NOT NULL
+)
+
+CREATE TABLE [Services](
+Id INT PRIMARY KEY IDENTITY,
+Icon NVARCHAR(100) NOT NULL,
+Title NVARCHAR(80) NOT NULL,
+[Desc] NVARCHAR(200) NOT NULL
+)
+
+CREATE TABLE SettingVs(
+Id INT PRIMARY KEY IDENTITY,
+LogoName NVARCHAR(50) NOT NULL,
+Title NVARCHAR(80) NOT NULL,
+Subtitle NVARCHAR(150) NOT NULL,
+Img NVARCHAR(100) NOT NULL,
+AboutDesc NVARCHAR(4000) NOT NULL,
+AboutImg NVARCHAR(100) NOT NULL,
+ServicesSubtitle NVARCHAR(150) NOT NULL,
+FeaturesSubtitle NVARCHAR(150) NOT NULL,
+TestimonialsSubtitle NVARCHAR(150) NOT NULL,
+PortfolioSubtitle NVARCHAR(150) NOT NULL,
+TeamSubtitle NVARCHAR(150) NOT NULL,
+PricingSubtitle NVARCHAR(200) NOT NULL,
+Newsletter NVARCHAR(500) NOT NULL,
+Street NVARCHAR(50) NOT NULL,
+City NVARCHAR(25) NOT NULL,
+ZipCode NVARCHAR(10) NOT NULL,
+Email NVARCHAR(50) NOT NULL,
+Phone NVARCHAR(20) NOT NULL
+)
+
+CREATE TABLE Teams(
+Id INT PRIMARY KEY IDENTITY,
+Img NVARCHAR(100) NOT NULL,
+FullName NVARCHAR(50) NOT NULL,
+Position NVARCHAR(50) NOT NULL
+)
+
+CREATE TABLE Testimonials(
+Id INT PRIMARY KEY IDENTITY,
+Img NVARCHAR(100) NOT NULL,
+FullName NVARCHAR(100) NOT NULL,
+Position NVARCHAR(50) NOT NULL,
+[Text] NVARCHAR(400) NOT NULL
+)
+
+SELECT Plans.[Name],PlFeatures.[Text] FROM PlanFeatures 
+JOIN Plans ON PlanFeatures.PlanId=Plans.Id
+JOIN PlFeatures ON PlanFeatures.PlFeatureId=PlFeatures.Id
+
+
+SELECT Portfolios.[Name],PortImages.[Path],PortCategories.[Name] FROM PortImages
+JOIN Portfolios ON PortImages.PortfolioId=Portfolios.Id
+JOIN PortCategories ON Portfolios.CategoryId=PortCategories.Id
+
+SELECT Plans.Name, COUNT(PlFeatures.Id) AS CoundOfFeatures FROM Plans
+JOIN PlanFeatures ON Plans.Id=PlanFeatures.PlanId
+JOIN PlFeatures ON PlanFeatures.PlFeatureId=PlFeatures.Id
+GROUP BY Plans.Id,Plans.Name
+
+SELECT Plans.Name, COUNT(*) FROM PlFeatures
+JOIN PlanFeatures ON PlFeatures.Id=PlanFeatures.PlFeatureId
+JOIN Plans ON PlanFeatures.PlanId=Plans.Id
+GROUP BY Plans.Id,Plans.Name
+
