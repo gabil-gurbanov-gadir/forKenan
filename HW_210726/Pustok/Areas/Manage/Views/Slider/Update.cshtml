@@ -1,0 +1,57 @@
+﻿@model Slider
+@{
+    ViewData["Title"] = "Update";
+}
+
+<div class="p-5">
+    <div class="text-center">
+        <h1 class="h4 text-gray-900 mb-4">Update Slider</h1>
+    </div>
+    <form class="user" method="post">
+        <div class="form-group row justify-content-center">
+            <div class="col-sm-6 mb-3 mb-sm-0 text-center">
+                <input type="text" asp-for="@Model.Title" class="form-control form-control-user text-center" id="title">
+                <span class="danger-color" asp-validation-for="@Model.Title"></span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col-sm-6 mb-3 mb-sm-0 text-center">
+                <input type="text" asp-for="@Model.Subtitle" class="form-control form-control-user text-center" id="subtitle">
+                <span class="danger-color" asp-validation-for="@Model.Subtitle"></span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col-sm-6 mb-3 mb-sm-0 text-center">
+                <input type="text" asp-for="@Model.Image" class="form-control form-control-user text-center" id="imaage">
+                <span class="danger-color" asp-validation-for="@Model.Image"></span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col-sm-6 mb-3 mb-sm-0 text-center">
+                <input type="text" asp-for="@Model.RedirectUrl" class="form-control form-control-user text-center" id="redirectUrl">
+                <span class="danger-color" asp-validation-for="@Model.RedirectUrl"></span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col-sm-6 mb-3 mb-sm-0 text-center">
+                <input type="text" asp-for="@Model.Order" class="form-control form-control-user text-center" id="order">
+                <span class="danger-color" asp-validation-for="@Model.Order"></span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col-sm-6 mb-3 mb-sm-0 text-center">
+                <input type="text" asp-for="@Model.BtnText" class="form-control form-control-user text-center" id="btnText">
+                <span class="danger-color" asp-validation-for="@Model.BtnText"></span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <button type="submit" class="btn btn-primary btn-user w-50">
+                Update
+            </button>
+        </div>
+
+    </form>
+</div>
+
+
+
